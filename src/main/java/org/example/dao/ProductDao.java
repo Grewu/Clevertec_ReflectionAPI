@@ -1,6 +1,7 @@
 package org.example.dao;
 
-import org.example.entity.Product;
+import org.example.dto.ProductDto;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -12,30 +13,30 @@ public interface ProductDao {
      * @param uuid уникальный идентификатор продукта.
      * @return продукт с указанным идентификатором или null, если не найден.
      */
-    Product get(UUID uuid);
+    ProductDto get(UUID uuid);
 
     /**
      * Получает список всех существующих продуктов.
      *
      * @return список содержащий информацию о всех продуктах.
      */
-    List<Product> getAll();
+    List<ProductDto> getAll();
 
     /**
      * Создает новый продукт, используя предоставленную информацию.
      *
-     * @param product информация о продукте, который нужно создать.
+     * @param productDto информация о продукте, который нужно создать.
      * @return уникальный идентификатор, присвоенный продукту.
      */
-    UUID create(Product product);
+    UUID create(ProductDto productDto);
 
     /**
      * Обновляет существующий продукт с использованием предоставленной информации.
      *
-     * @param uuid    уникальный идентификатор продукта, который нужно обновить.
-     * @param product информация для обновления существующего продукта.
+     * @param uuid       уникальный идентификатор продукта, который нужно обновить.
+     * @param productDto информация для обновления существующего продукта.
      */
-    void update(UUID uuid, Product product);
+    void update(UUID uuid, ProductDto productDto);
 
     /**
      * Удаляет существующий продукт по его уникальному идентификатору.

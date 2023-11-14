@@ -36,4 +36,12 @@ public interface ProductMapper {
      */
 
     Product merge(@MappingTarget Product product, ProductDto productDto);
+
+    /**
+     * Маппит текущий продукт в DTO без даты
+     *
+     * @param productDto - существующий продукт
+     * @return DTO с идентификатором
+     */
+    InfoProductDto toInfoProductDto(ProductDto productDto);
 }

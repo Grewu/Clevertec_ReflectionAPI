@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<InfoProductDto> getAll() {
-        List<Product> productDtos = productDao.findAll();
+        List<ProductDto> productDtos = productDao.getAll();
         return productDtos.stream()
                 .map(mapper::toInfoProductDto)
                 .collect(Collectors.toList());

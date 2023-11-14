@@ -30,7 +30,7 @@ public class ProductDaoImpl implements ProductDao {
                 return mapProductDto(resultSet);
             }
         } catch (SQLException e) {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(uuid);
         }
         return null;
     }

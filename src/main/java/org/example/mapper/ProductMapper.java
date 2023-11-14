@@ -3,7 +3,10 @@ package org.example.mapper;
 import org.example.dto.InfoProductDto;
 import org.example.dto.ProductDto;
 import org.example.entity.Product;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
+@Mapper
 public interface ProductMapper {
 
 
@@ -32,5 +35,5 @@ public interface ProductMapper {
      * @return обновлённый продукт
      */
 
-    Product merge(Product product, ProductDto productDto);
+    Product merge(@MappingTarget Product product, ProductDto productDto);
 }

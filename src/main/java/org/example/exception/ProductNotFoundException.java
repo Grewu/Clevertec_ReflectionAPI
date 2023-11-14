@@ -9,4 +9,7 @@ public class ProductNotFoundException extends RuntimeException {
     public ProductNotFoundException() {
         super("Product not found");
     }
+    public ProductNotFoundException(UUID uuid) {
+        super("Product not found with uuid " + uuid);
+    }
 }

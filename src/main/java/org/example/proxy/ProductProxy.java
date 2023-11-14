@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.example.cache.Cache;
 import org.example.dao.ProductDao;
+import org.example.dto.InfoProductDto;
 import org.example.dto.ProductDto;
 import org.example.exception.ProductCacheException;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class ProductProxy {
     private final ProductDao productDao;
     private final Cache<UUID, ProductDto> productDtoCache;
+    private final Cache<UUID, InfoProductDto> productInfoProducDtoCache;
 
     @Pointcut("execution(* org.example.dao.ProductDao.get(..)) && args(uuid)")
     public void get(UUID uuid) {
@@ -32,9 +34,9 @@ public class ProductProxy {
     }
 
     @AfterReturning(pointcut = "get(uuid)", returning = "result")
-    public void afterGet(UUID uuid, ProductDto result) {
-        if (productDtoCache.get(uuid) == null) {
-            productDtoCache.set(uuid, result);
+    public void afterGet(UUID uuid, InfoProductDto result) {
+        if (productInfoProducDtoCache.get(uuid) == null) {
+            productInfoProducDtoCache.set(uuid, result);
         }
     }
 

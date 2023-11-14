@@ -19,6 +19,13 @@ public final class LFUCache<K, V> implements Cache<K, V> {
         this.lists = new HashMap<>();
         this.lists.put(1, new LinkedHashSet<>());
     }
+    private LFUCache() {
+        this.capacity = 10;
+        this.vars = new HashMap<>();
+        this.counts = new HashMap<>();
+        this.lists = new HashMap<>();
+        this.lists.put(1, new LinkedHashSet<>());
+    }
 
     @Override
     public V get(K key) {

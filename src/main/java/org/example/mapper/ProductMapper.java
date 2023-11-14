@@ -8,8 +8,6 @@ import org.mapstruct.MappingTarget;
 
 @Mapper
 public interface ProductMapper {
-
-
     /**
      * Маппит DTO в продукт без UUID
      *

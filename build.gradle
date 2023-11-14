@@ -23,9 +23,15 @@ ext {
 dependencies {
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     testImplementation platform('org.junit:junit-bom:5.9.1')
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.0'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation "org.aspectj:aspectjrt:1.9.6"
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
+    compileOnly "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
 }
 
 test {

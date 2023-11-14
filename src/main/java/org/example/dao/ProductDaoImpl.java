@@ -145,7 +145,8 @@ public class ProductDaoImpl implements ProductDao {
                 (UUID) resultSet.getObject("uuid"),
                 resultSet.getString("name"),
                 resultSet.getString("description"),
-                resultSet.getBigDecimal("price")
+                resultSet.getBigDecimal("price"),
+                resultSet.getTimestamp("created").toLocalDateTime()
         );
     }
     private Product mapProduct(ResultSet resultSet) throws SQLException {

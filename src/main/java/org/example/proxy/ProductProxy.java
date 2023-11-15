@@ -1,29 +1,58 @@
 package org.example.proxy;
 
-import lombok.AllArgsConstructor;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.example.cache.Cache;
+import org.example.cache.LFUCache;
+import org.example.cache.LRUCache;
 import org.example.dao.ProductDao;
 import org.example.dto.InfoProductDto;
 import org.example.dto.ProductDto;
 import org.example.exception.ProductCacheException;
+import org.example.util.YmlReader;
 
 import java.util.List;
 import java.util.UUID;
 
 
-@AllArgsConstructor
 @Aspect
-public class ProductProxy {
+public final class ProductProxy {
     private final ProductDao productDao;
-    private final Cache<UUID, ProductDto> productDtoCache;
-    private final Cache<UUID, InfoProductDto> productInfoProducDtoCache;
+    private Cache<UUID, ProductDto> productDtoCache;
+    private Cache<UUID, InfoProductDto> productInfoProducDtoCache;
 
-    @Pointcut("execution(* org.example.dao.ProductDao.get(..)) && args(uuid)")
+    public ProductProxy(ProductDao productDao) {
+        this.productDao = productDao;
+        String cacheType = YmlReader.getCacheType();
+        if ("LRU".equals(cacheType)) {
+            productDtoCache = new LRUCache<>(Integer.parseInt(YmlReader.getCacheCapacity()));
+            productInfoProducDtoCache = new LRUCache<>(Integer.parseInt(YmlReader.getCacheCapacity()));
+        } else if ("LFU".equals(cacheType)) {
+            productDtoCache = new LFUCache<>(Integer.parseInt(YmlReader.getCacheCapacity()));
+            productInfoProducDtoCache = new LFUCache<>(Integer.parseInt(YmlReader.getCacheCapacity()));
+        }
+    }
+
+    @Pointcut("@annotation(org.example.proxy.annotation.GetProduct) && args(uuid)")
     public void get(UUID uuid) {
+    }
+
+    @Pointcut("@annotation(org.example.proxy.annotation.GetAllProduct)")
+    public void getAllProduct() {
+    }
+
+    @Pointcut("@annotation(org.example.proxy.annotation.CreateProduct) && args(productDto)")
+    public void create(ProductDto productDto) {
+    }
+
+    @Pointcut("@annotation(org.example.proxy.annotation.UpdateProduct) && args(uuid, productDto)")
+    public void update(UUID uuid, ProductDto productDto) {
+    }
+
+    @Pointcut("@annotation(org.example.proxy.annotation.DeleteProduct) && args(uuid)")
+    public void delete(UUID uuid) {
     }
 
     @Before("get(uuid)")
@@ -40,10 +69,6 @@ public class ProductProxy {
         }
     }
 
-    @Pointcut("execution(* org.example.dao.ProductDao.getAll(..))")
-    public void getAllProduct() {
-    }
-
     @AfterReturning(pointcut = "getAllProduct()", returning = "result")
     public void afterGetAll(Object result) {
         if (result instanceof List<?>) {
@@ -52,11 +77,6 @@ public class ProductProxy {
                 productDtoCache.set(productDto.uuid(), productDto);
             }
         }
-    }
-
-    @Pointcut("execution(* org.example.dao.ProductDao.create(..)) && args(productDto)")
-    public void create(ProductDto productDto) {
-
     }
 
     @Before("create(productDto)")
@@ -73,11 +93,6 @@ public class ProductProxy {
         }
     }
 
-    @Pointcut("execution(* org.example.dao.ProductDao.update(..)) && args(uuid,productDto)")
-    public void update(UUID uuid, ProductDto productDto) {
-
-    }
-
     @Before("update(uuid,productDto)")
     public void beforeUpdate(UUID uuid, ProductDto productDto) {
         if (productDtoCache.get(uuid) == null) {
@@ -86,14 +101,10 @@ public class ProductProxy {
     }
 
     @AfterReturning(pointcut = "update(uuid,productDto)", returning = "productDto")
-    public void afterUpdate(ProductDto productDto) {
+    public void afterUpdate(UUID uuid, ProductDto productDto) {
         if (productDtoCache.get(productDto.uuid()) == null) {
             productDtoCache.set(productDto.uuid(), productDto);
         }
-    }
-
-    @Pointcut("execution(* org.example.dao.ProductDao.delete(..)) && args(uuid)")
-    public void delete(UUID uuid) {
     }
 
     @Before("delete(uuid)")
@@ -101,8 +112,9 @@ public class ProductProxy {
         productDao.delete(uuid);
     }
 
-    @AfterReturning("delete(uuid)")
+    @AfterReturning(value = "delete(uuid)", returning = "uuid")
     public void afterDelete(UUID uuid) {
         productDtoCache.remove(uuid);
     }
+
 }

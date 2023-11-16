@@ -126,7 +126,7 @@ public class ProductDaoImpl implements ProductDao {
             throw new ProductDeleteException(uuid);
         }
     }
-
+    @GetProduct
     @Override
     public Optional<Product> findById(UUID uuid) {
         try (Connection connection = connectionManager.open();

@@ -7,6 +7,7 @@ import org.example.dto.ProductDto;
 import org.example.entity.Product;
 import org.example.exception.ProductNotFoundException;
 import org.example.mapper.ProductMapper;
+import org.example.proxy.annotation.GetProduct;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +20,12 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper mapper;
     private final ProductDao productDao;
 
+
     @Override
     public InfoProductDto get(UUID uuid) {
-        return productDao.findById(uuid).map(mapper::toInfoProductDto).orElseThrow(() -> new ProductNotFoundException(uuid));
+        return productDao.findById(uuid)
+                .map(mapper::toInfoProductDto)
+                .orElseThrow(() -> new ProductNotFoundException(uuid));
     }
 
     @Override

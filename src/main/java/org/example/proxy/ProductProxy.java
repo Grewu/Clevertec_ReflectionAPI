@@ -4,6 +4,7 @@ package org.example.proxy;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.example.cache.Cache;
 import org.example.cache.LFUCache;
@@ -36,26 +37,43 @@ public class ProductProxy {
 
     }
 
-    @Pointcut("@annotation(org.example.proxy.annotation.GetProduct)")
+    @Pointcut("execution(@org.example.proxy.annotation.GetProduct * *(..))")
     public void getProduct() {
     }
 
-    @Around("getProduct()")
-    public Object getProduct(ProceedingJoinPoint joinPoint) throws Throwable {
-        ProductDto productDto = new ProductDto(UUID.randomUUID(),"name","des", BigDecimal.TEN, LocalDateTime.MIN);
-//
-//        if (productDto == null) {
-//            Object result = joinPoint.proceed();
-//
-//            if (result instanceof ProductDto) {
-//                productDto = (ProductDto) result;
-//                productDtoCache.set(uuid, productDto);
-//            }
-//        }
-//
-        return productDto;
+    @Around("getProduct() && execution(* org.example.proxy.ProductProxy.get(..)) && args(uuid)")
+    public Object aroundGetProduct(ProceedingJoinPoint joinPoint, UUID uuid) throws Throwable {
+        ProductDto productDto = productDtoCache.get(uuid);
 
+        if (productDto == null) {
+            // If not found in cache, proceed with the actual method call
+            Object result = joinPoint.proceed();
+
+            if (result instanceof ProductDto) {
+                productDto = (ProductDto) result;
+                productDtoCache.set(uuid, productDto);
+            }
+        }
+
+        return productDto;
     }
 
+//    @Around("getProduct()")
+//    public Object getProduct(ProceedingJoinPoint joinPoint) throws Throwable {
+//        ProductDto productDto = new ProductDto(UUID.randomUUID(),"name","des", BigDecimal.TEN, LocalDateTime.MIN);
+////
+////        if (productDto == null) {
+////            Object result = joinPoint.proceed();
+////
+////            if (result instanceof ProductDto) {
+////                productDto = (ProductDto) result;
+////                productDtoCache.set(uuid, productDto);
+////            }
+////        }
+////
+//        return productDto;
 
 }
+
+
+

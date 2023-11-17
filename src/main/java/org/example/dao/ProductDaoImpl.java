@@ -39,7 +39,6 @@ public class ProductDaoImpl implements ProductDao {
     private static final String UPDATE_SQL = "UPDATE products SET name = ?, description = ?, price = ?, created = ? WHERE uuid = ?";
     private static final String DELETE_SQL = "DELETE FROM products WHERE uuid = ?";
 
-    @GetProduct
     @Override
     public ProductDto get(UUID uuid) {
         try (Connection connection = connectionManager.open();

@@ -7,8 +7,6 @@ import org.example.dto.ProductDto;
 import org.example.entity.Product;
 import org.example.exception.ProductNotFoundException;
 import org.example.mapper.ProductMapper;
-import org.example.proxy.annotation.GetProduct;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

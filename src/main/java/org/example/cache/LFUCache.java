@@ -12,14 +12,14 @@ public final class LFUCache<K, V> implements Cache<K, V> {
     private final int capacity;
     private int min = -1;
 
-    private LFUCache(int capacity) {
+    public LFUCache(int capacity) {
         this.capacity = capacity;
         this.vars = new HashMap<>();
         this.counts = new HashMap<>();
         this.lists = new HashMap<>();
         this.lists.put(1, new LinkedHashSet<>());
     }
-    private LFUCache() {
+    public LFUCache() {
         this.capacity = 10;
         this.vars = new HashMap<>();
         this.counts = new HashMap<>();

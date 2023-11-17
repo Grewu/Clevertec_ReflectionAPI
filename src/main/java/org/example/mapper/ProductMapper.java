@@ -4,7 +4,11 @@ import org.example.dto.InfoProductDto;
 import org.example.dto.ProductDto;
 import org.example.entity.Product;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+
+import java.sql.ResultSet;
+import java.util.UUID;
 
 @Mapper
 public interface ProductMapper {
@@ -42,4 +46,6 @@ public interface ProductMapper {
      * @return DTO с идентификатором
      */
     InfoProductDto toInfoProductDto(ProductDto productDto);
+
+    ProductDto toProductDto(Product product);
 }

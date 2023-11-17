@@ -2,15 +2,13 @@ package org.example.cache;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-class LFUCacheTest {
-
+class LRUCacheTest {
 
     @Test
-    void get() {
-        LFUCache<String, Integer> cache = new LFUCache<>(3);
+    void LRUCacheGetWithValidKey() {
+        LRUCache<String, Integer> cache = new LRUCache<>(3);
 
         cache.set("A", 1);
         cache.set("B", 2);
@@ -21,8 +19,8 @@ class LFUCacheTest {
     }
 
     @Test
-    void set() {
-        LFUCache<String, Integer> cache = new LFUCache<>(3);
+    void LRUCacheSetAndEviction() {
+        LRUCache<String, Integer> cache = new LRUCache<>(3);
 
         cache.set("A", 1);
         cache.set("B", 2);
@@ -42,8 +40,8 @@ class LFUCacheTest {
     }
 
     @Test
-    void remove() {
-        LFUCache<String, Integer> cache = new LFUCache<>(3);
+    void LRUCacheRemove() {
+        LRUCache<String, Integer> cache = new LRUCache<>(3);
 
         cache.set("A", 1);
         cache.set("B", 2);
@@ -56,5 +54,4 @@ class LFUCacheTest {
         assertNull(cache.get("A"));
         assertEquals(2, cache.get("B"));
     }
-
 }

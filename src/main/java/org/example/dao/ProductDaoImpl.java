@@ -10,9 +10,7 @@ import org.example.exception.ProductUpdateException;
 import org.example.mapper.ProductMapper;
 import org.example.proxy.annotation.CreateProduct;
 import org.example.proxy.annotation.DeleteProduct;
-import org.example.proxy.annotation.GetAllProduct;
 import org.example.proxy.annotation.GetProduct;
-import org.example.proxy.annotation.UpdateProduct;
 import org.example.singleton.ConnectionManagerSingleton;
 import org.example.util.ConnectionManager;
 
@@ -61,7 +59,6 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    @GetAllProduct
     public List<ProductDto> getAll() {
         List<ProductDto> products = new ArrayList<>();
         try (Connection connection = connectionManager.open();
@@ -100,7 +97,6 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    @UpdateProduct
     public void update(UUID uuid, ProductDto productDto) throws ProductUpdateException {
         try (Connection connection = connectionManager.open();
              PreparedStatement statement = connection.prepareStatement(UPDATE_SQL)) {
@@ -125,8 +121,9 @@ public class ProductDaoImpl implements ProductDao {
             throw new ProductDeleteException(uuid);
         }
     }
-    @GetProduct
+
     @Override
+    @GetProduct
     public Optional<Product> findById(UUID uuid) {
         try (Connection connection = connectionManager.open();
              PreparedStatement statement = connection.prepareStatement(SELECT_BY_UUID_SQL)) {

@@ -1,6 +1,5 @@
 package org.example.exception;
 
-import java.sql.SQLException;
 import java.util.UUID;
 
 public class ProductDeleteException extends RuntimeException {

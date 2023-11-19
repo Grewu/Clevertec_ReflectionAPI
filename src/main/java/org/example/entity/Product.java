@@ -41,4 +41,5 @@ public class Product {
      * Время создания, не может быть null(задаётся до сохранения и не обновляется)
      */
     private LocalDateTime created;
+
 }

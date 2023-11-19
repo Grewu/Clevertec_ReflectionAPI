@@ -13,6 +13,7 @@ public final class LRUCache<K, V> implements Cache<K, V> {
         this.capacity = capacity;
         this.map = new LinkedHashMap<>(capacity, 0.75f, true);
     }
+
     public LRUCache() {
         this.capacity = 10;
         this.map = new LinkedHashMap<>(capacity, 0.75f, true);

@@ -43,5 +43,12 @@ public interface ProductMapper {
      */
     InfoProductDto toInfoProductDto(ProductDto productDto);
 
+    /**
+     * Маппит текущий продукт в DTO без даты
+     *
+     * @param product - существующий продукт
+     * @return DTO с идентификатором
+     */
     ProductDto toProductDto(Product product);
+
 }

@@ -1,6 +1,7 @@
 package org.example;
 
 import lombok.AllArgsConstructor;
+import org.example.controller.Controller;
 import org.example.dao.ProductDao;
 import org.example.dao.ProductDaoImpl;
 import org.example.dto.ProductDto;
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 public class Main {
-    private final ProductService productService;
+    private final Controller productController;
 
     private void method() {
         String dateString = "2023-11-14 13:31:17.227031";
@@ -24,12 +25,12 @@ public class Main {
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         ProductDto productDto = new ProductDto(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), "Product Name",
                 "Product Description", BigDecimal.TEN, dateTime);
-        System.out.println(productService.get(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962")));
-        productService.delete((UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962")));
+        System.out.println(productController.getProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962")));
+        productController.deleteProduct((UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962")));
 
-        System.out.println(productService.get(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962")));
-        productService.getAll();
-        productService.update(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), productDto);
+        System.out.println(productController.createProduct(productDto));
+        productController.getAllProducts();
+        productController.updateProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), productDto);
 
     }
 
@@ -37,7 +38,8 @@ public class Main {
         ProductMapper mapper = new ProductMapperImpl();
         ProductDao productDao = new ProductDaoImpl(mapper);
         ProductService productService1 = new ProductServiceImpl(mapper, productDao);
-        Main main = new Main(productService1);
+        Controller controller = new Controller(productService1);
+        Main main = new Main(controller);
         main.method();
     }
 }

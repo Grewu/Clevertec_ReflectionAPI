@@ -17,6 +17,7 @@ public final class YmlReader {
             throw new RuntimeException("Error reading application.yml", e);
         }
     }
+
     public static String getCacheCapacity() {
         try (InputStream inputStream = YmlReader.class.getClassLoader().getResourceAsStream("application.yml")) {
             Yaml yaml = new Yaml();
@@ -26,5 +27,6 @@ public final class YmlReader {
             throw new RuntimeException("Error reading application.yml", e);
         }
     }
+
 }
 

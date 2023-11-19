@@ -1,4 +1,5 @@
 package org.example.util;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -21,4 +22,5 @@ public class PropertiesUtil {
             throw new RuntimeException(e);
         }
     }
+
 }

@@ -41,6 +41,7 @@ public class ProductProxy {
     public void createProduct() {
 
     }
+
     @Pointcut("@annotation(org.example.proxy.annotation.DeleteProduct)")
     public void deleteProduct() {
 
@@ -65,6 +66,7 @@ public class ProductProxy {
         productDtoCache.set(productId, product);
         return productId;
     }
+
     @Around("deleteProduct()")
     public Object deleteProduct(ProceedingJoinPoint joinPoint) throws Throwable {
         UUID productId = (UUID) joinPoint.proceed();

@@ -16,4 +16,5 @@ public final class ConnectionManagerSingleton {
         }
         return instance;
     }
+
 }

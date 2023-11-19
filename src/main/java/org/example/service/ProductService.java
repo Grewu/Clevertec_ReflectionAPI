@@ -48,5 +48,6 @@ public interface ProductService {
      * @param uuid идентификатор продукта для удаления
      */
     void delete(UUID uuid);
+
 }
 

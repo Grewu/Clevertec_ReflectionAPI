@@ -1,4 +1,4 @@
-## Tske
+## Task
 
 - `src/main/java/com/example/cache/Cache.java`: Реализация кеша с алгоритмами LRU и LFU.
 - `src/main/java/com/example/service/ProductService.java`: Сервис для обработки продуктов.

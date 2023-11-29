@@ -26,12 +26,12 @@ public class Main {
     private final ReportProductTemplate productTemplate;
 
     private void executeDemo() {
-        // Создаем объект LocalDateTime из строки
+
         String dateString = "2023-11-14 13:31:17.227031";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
 
-        // Создаем объект ProductDto
+
         ProductDto productDto = new ProductDto(
                 UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"),
                 "Product Name",
@@ -39,7 +39,7 @@ public class Main {
                 BigDecimal.TEN,
                 LocalDateTime.now()
         );
-        // Создаем объект Product
+
         Product product = new Product().build()
                 .withUuid(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"))
                 .withName("name")
@@ -48,7 +48,7 @@ public class Main {
                 .withCreated(LocalDateTime.now())
                 .build();
 
-        // Вызываем различные операции с контроллером и шаблоном
+
         productController.getProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"));
         productController.deleteProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"));
         productTemplate.generateReport(product);
@@ -58,14 +58,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // Инициализация зависимостей
+
         ProductMapper mapper = new ProductMapperImpl();
         ProductDao productDao = new ProductDaoImpl(mapper);
         ProductService productService = new ProductServiceImpl(mapper, productDao);
         Controller controller = new Controller(productService);
         ReportProductTemplate productTemplatePDF = new PDFWriter();
 
-        // Создание объекта Main и выполнение демонстрационных операций
+
         Main main = new Main(controller, productTemplatePDF);
         main.executeDemo();
     }

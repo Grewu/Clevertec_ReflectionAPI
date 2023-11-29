@@ -12,7 +12,7 @@ import org.example.proxy.annotation.CreateProduct;
 import org.example.proxy.annotation.DeleteProduct;
 import org.example.proxy.annotation.GetProduct;
 import org.example.singleton.ConnectionManagerSingleton;
-import org.example.util.ConnectionManager;
+import org.example.util.db.ConnectionManager;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

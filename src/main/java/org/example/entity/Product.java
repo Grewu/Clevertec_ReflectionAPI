@@ -1,7 +1,6 @@
 package org.example.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
@@ -11,11 +10,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldNameConstants
-public class Product {
+public class Product implements ProductBuilder {
 
     /**
      * Идентификатор продукта (генерируется базой)
@@ -41,4 +39,40 @@ public class Product {
      * Время создания, не может быть null(задаётся до сохранения и не обновляется)
      */
     private LocalDateTime created;
+
+    @Override
+    public Product build() {
+        return this;
+    }
+
+    @Override
+    public ProductBuilder withUuid(UUID uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    @Override
+    public ProductBuilder withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    @Override
+    public ProductBuilder withDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    @Override
+    public ProductBuilder withPrice(BigDecimal price) {
+        this.price = price;
+        return this;
+    }
+
+    @Override
+    public ProductBuilder withCreated(LocalDateTime created) {
+        this.created = created;
+        return this;
+    }
+
 }

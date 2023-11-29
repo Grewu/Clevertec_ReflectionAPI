@@ -35,4 +35,5 @@ public record InfoProductDto(
         @NotNull
         @Positive(message = "Цена должна быть положительной")
         BigDecimal price) {
+
 }

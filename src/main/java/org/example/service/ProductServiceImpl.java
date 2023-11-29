@@ -7,6 +7,7 @@ import org.example.dto.ProductDto;
 import org.example.entity.Product;
 import org.example.exception.ProductNotFoundException;
 import org.example.mapper.ProductMapper;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,7 +30,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<InfoProductDto> getAll() {
         List<Product> productDtos = productDao.findAll();
-        return productDtos.stream().map(mapper::toInfoProductDto).collect(Collectors.toList());
+        return productDtos.stream()
+                .map(mapper::toInfoProductDto)
+                .collect(Collectors.toList());
     }
 
     @Override

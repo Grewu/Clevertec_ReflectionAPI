@@ -3,7 +3,6 @@ package org.example.dao;
 import org.example.dto.ProductDto;
 import org.example.entity.Product;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -70,4 +69,5 @@ public interface ProductDao {
      * @throws IllegalArgumentException если переданный продукт null
      */
     Product save(Product product);
+
 }

@@ -1,4 +1,4 @@
-package org.example.util;
+package org.example.util.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,6 +32,5 @@ public final class ConnectionManager {
             throw new RuntimeException("Error load" + e.getMessage());
         }
     }
-
 
 }

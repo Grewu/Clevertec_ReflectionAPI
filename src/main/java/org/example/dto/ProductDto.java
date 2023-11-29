@@ -1,7 +1,5 @@
 package org.example.dto;
 
-import lombok.AllArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -9,6 +7,7 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
 public record ProductDto(
         /*
          * {@link org.example.entity.Product}

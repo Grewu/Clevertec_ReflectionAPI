@@ -10,16 +10,17 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.example.entity.Product;
 import org.example.exception.PDFException;
+import org.example.util.template.ReportProductTemplate;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class PDFWriter {
+public class PDFWriter extends ReportProductTemplate {
     private static final String INPUT_PDF_PATH = "Clevertec_Template.pdf";
     private static final String OUTPUT_PDF_PATH = "check.pdf";
 
 
-    public static void createPdfWithBackground(Product product) {
+    public void createPdfWithBackground(Product product) {
         try {
             Document document = new Document();
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(OUTPUT_PDF_PATH));
@@ -35,7 +36,7 @@ public class PDFWriter {
         }
     }
 
-    private static void addBackgroundPdf(PdfWriter writer) {
+    private void addBackgroundPdf(PdfWriter writer) {
         try {
             PdfReader reader = new PdfReader(INPUT_PDF_PATH);
             PdfImportedPage page = writer.getImportedPage(reader, 1);
@@ -46,7 +47,7 @@ public class PDFWriter {
         }
     }
 
-    private static void addProductText(PdfWriter writer, Product product) {
+    private void addProductText(PdfWriter writer, Product product) {
         try {
             PdfContentByte canvas = writer.getDirectContent();
 
@@ -65,12 +66,17 @@ public class PDFWriter {
         }
     }
 
-    private static String createParagraph(Product product) {
+    private String createParagraph(Product product) {
         return "Product Name:                                                 " + product.getName() + "\n" +
                 "Description:                                               " + product.getDescription() + "\n" +
                 "Price: $                                                  " + product.getPrice() + "\n" +
                 "Created:                                                  " + product.getCreated() + "\n\n";
     }
 
+
+    @Override
+    protected void initialize(Product product) {
+        createPdfWithBackground(product);
+    }
 
 }

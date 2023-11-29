@@ -11,39 +11,63 @@ import org.example.mapper.ProductMapperImpl;
 import org.example.service.ProductService;
 import org.example.service.ProductServiceImpl;
 import org.example.util.pdf.PDFWriter;
+import org.example.util.template.ReportProductTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+
 @AllArgsConstructor
 public class Main {
-    private final Controller productController;
 
-    private void method() {
+    private final Controller productController;
+    private final ReportProductTemplate productTemplate;
+
+    private void executeDemo() {
+        // Создаем объект LocalDateTime из строки
         String dateString = "2023-11-14 13:31:17.227031";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
-        ProductDto productDto = new ProductDto(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), "Product Name",
-                "Product Description", BigDecimal.TEN, dateTime);
-        Product product = new Product(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), "name", "description",
-                BigDecimal.ONE, LocalDateTime.now());
-//        System.out.println(productController.getProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962")));
-//        productController.deleteProduct((UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962")));
-        PDFWriter.createPdfWithBackground(product);
-//        System.out.println(productController.createProduct(productDto));
-//        productController.getAllProducts();
-//        productController.updateProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), productDto);
 
+        // Создаем объект ProductDto
+        ProductDto productDto = new ProductDto(
+                UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"),
+                "Product Name",
+                "Product Description",
+                BigDecimal.TEN,
+                LocalDateTime.now()
+        );
+        // Создаем объект Product
+        Product product = new Product().build()
+                .withUuid(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"))
+                .withName("name")
+                .withDescription("description")
+                .withPrice(BigDecimal.TEN)
+                .withCreated(LocalDateTime.now())
+                .build();
+
+        // Вызываем различные операции с контроллером и шаблоном
+        productController.getProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"));
+        productController.deleteProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"));
+        productTemplate.generateReport(product);
+        productController.createProduct(productDto);
+        productController.getAllProducts();
+        productController.updateProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), productDto);
     }
 
     public static void main(String[] args) {
+        // Инициализация зависимостей
         ProductMapper mapper = new ProductMapperImpl();
         ProductDao productDao = new ProductDaoImpl(mapper);
-        ProductService productService1 = new ProductServiceImpl(mapper, productDao);
-        Controller controller = new Controller(productService1);
-        Main main = new Main(controller);
-        main.method();
+        ProductService productService = new ProductServiceImpl(mapper, productDao);
+        Controller controller = new Controller(productService);
+        ReportProductTemplate productTemplatePDF = new PDFWriter();
+
+        // Создание объекта Main и выполнение демонстрационных операций
+        Main main = new Main(controller, productTemplatePDF);
+        main.executeDemo();
     }
 }
+

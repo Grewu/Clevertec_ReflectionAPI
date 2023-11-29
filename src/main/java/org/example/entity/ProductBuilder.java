@@ -7,13 +7,13 @@ import java.util.UUID;
 public interface ProductBuilder {
     Product build();
 
-    ProductBuilder uuid(UUID uuid);
+    ProductBuilder withUuid(UUID uuid);
 
-    ProductBuilder name(String name);
+    ProductBuilder withName(String name);
 
-    ProductBuilder description(String description);
+    ProductBuilder withDescription(String description);
 
-    ProductBuilder price(BigDecimal price);
+    ProductBuilder withPrice(BigDecimal price);
 
-    ProductBuilder created(LocalDateTime created);
+    ProductBuilder withCreated(LocalDateTime created);
 }

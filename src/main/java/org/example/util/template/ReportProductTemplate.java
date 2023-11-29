@@ -1,21 +1,19 @@
 package org.example.util.template;
 
+import org.example.entity.Product;
+
 public abstract class ReportProductTemplate {
-    public final void generateReport() {
-        initialize();
+    public final void generateReport(Product product) {
+        initialize(product);
         createHeader();
-        generateContent();
-        createFooter();
         finalizeReport();
     }
 
-    protected abstract void initialize();
+    protected abstract void initialize(Product product);
 
-    protected abstract void generateContent();
-
-    protected abstract void createFooter();
-
-    protected void finalizeReport() {}
+    protected void finalizeReport() {
+        System.out.println("Pdf has been created");
+    }
 
 
     private void createHeader() {

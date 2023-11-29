@@ -46,31 +46,31 @@ public class Product implements ProductBuilder {
     }
 
     @Override
-    public ProductBuilder uuid(UUID uuid) {
+    public ProductBuilder withUuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
     @Override
-    public ProductBuilder name(String name) {
+    public ProductBuilder withName(String name) {
         this.name = name;
         return this;
     }
 
     @Override
-    public ProductBuilder description(String description) {
+    public ProductBuilder withDescription(String description) {
         this.description = description;
         return this;
     }
 
     @Override
-    public ProductBuilder price(BigDecimal price) {
+    public ProductBuilder withPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
 
     @Override
-    public ProductBuilder created(LocalDateTime created) {
+    public ProductBuilder withCreated(LocalDateTime created) {
         this.created = created;
         return this;
     }

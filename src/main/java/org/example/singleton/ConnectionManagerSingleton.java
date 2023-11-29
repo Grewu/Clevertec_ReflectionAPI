@@ -1,6 +1,6 @@
 package org.example.singleton;
 
-import org.example.util.ConnectionManager;
+import org.example.util.db.ConnectionManager;
 
 public final class ConnectionManagerSingleton {
     private static volatile ConnectionManager instance;

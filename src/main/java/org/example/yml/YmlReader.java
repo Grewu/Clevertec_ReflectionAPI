@@ -1,4 +1,4 @@
-package org.example.util.yml;
+package org.example.yml;
 
 import org.yaml.snakeyaml.Yaml;
 

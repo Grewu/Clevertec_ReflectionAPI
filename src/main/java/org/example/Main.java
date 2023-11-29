@@ -10,8 +10,8 @@ import org.example.mapper.ProductMapper;
 import org.example.mapper.ProductMapperImpl;
 import org.example.service.ProductService;
 import org.example.service.ProductServiceImpl;
-import org.example.util.pdf.PDFWriter;
-import org.example.util.template.ReportProductTemplate;
+import org.example.pattern.template.pdf.PDFWriter;
+import org.example.pattern.template.ReportProductTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

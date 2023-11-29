@@ -1,4 +1,4 @@
-package org.example.util.pdf;
+package org.example.pattern.template.pdf;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -10,7 +10,7 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.example.entity.Product;
 import org.example.exception.PDFException;
-import org.example.util.template.ReportProductTemplate;
+import org.example.pattern.template.ReportProductTemplate;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -67,7 +67,8 @@ public class PDFWriter extends ReportProductTemplate {
     }
 
     private String createParagraph(Product product) {
-        return "Product Name:                                                 " + product.getName() + "\n" +
+        return "Product UUID:                                                 " + product.getUuid() + "\n" +
+                "Product Name:                                                 " + product.getName() + "\n" +
                 "Description:                                               " + product.getDescription() + "\n" +
                 "Price: $                                                  " + product.getPrice() + "\n" +
                 "Created:                                                  " + product.getCreated() + "\n\n";

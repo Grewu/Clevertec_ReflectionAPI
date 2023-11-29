@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import lombok.AllArgsConstructor;
+import org.example.db.ConnectionManager;
 import org.example.dto.ProductDto;
 import org.example.entity.Product;
 import org.example.exception.ProductCreateException;
@@ -8,11 +9,10 @@ import org.example.exception.ProductDeleteException;
 import org.example.exception.ProductNotFoundException;
 import org.example.exception.ProductUpdateException;
 import org.example.mapper.ProductMapper;
+import org.example.pattern.singleton.ConnectionManagerSingleton;
 import org.example.proxy.annotation.CreateProduct;
 import org.example.proxy.annotation.DeleteProduct;
 import org.example.proxy.annotation.GetProduct;
-import org.example.singleton.ConnectionManagerSingleton;
-import org.example.util.db.ConnectionManager;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -84,13 +84,12 @@ public class ProductDaoImpl implements ProductDao {
     public UUID create(ProductDto productDto) {
         try (Connection connection = connectionManager.open();
              PreparedStatement statement = connection.prepareStatement(INSERT_SQL)) {
-            UUID uuid = UUID.randomUUID();
-            statement.setObject(1, uuid);
+            statement.setObject(1, productDto.uuid());
             statement.setString(2, productDto.name());
             statement.setString(3, productDto.description());
             statement.setBigDecimal(4, productDto.price());
             statement.executeUpdate();
-            return uuid;
+            return productDto.uuid();
         } catch (SQLException e) {
             throw new ProductCreateException(e);
         }

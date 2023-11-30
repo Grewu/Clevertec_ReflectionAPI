@@ -8,14 +8,13 @@ import org.example.dto.ProductDto;
 import org.example.entity.Product;
 import org.example.mapper.ProductMapper;
 import org.example.mapper.ProductMapperImpl;
+import org.example.pattern.template.ReportProductTemplate;
+import org.example.pattern.template.pdf.PDFWriter;
 import org.example.service.ProductService;
 import org.example.service.ProductServiceImpl;
-import org.example.pattern.template.pdf.PDFWriter;
-import org.example.pattern.template.ReportProductTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 
@@ -26,10 +25,6 @@ public class Main {
     private final ReportProductTemplate productTemplate;
 
     private void executeDemo() {
-
-        String dateString = "2023-11-14 13:31:17.227031";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
-        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
 
 
         ProductDto productDto = new ProductDto(

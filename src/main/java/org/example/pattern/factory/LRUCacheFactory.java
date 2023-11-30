@@ -1,4 +1,4 @@
-package org.example.factory;
+package org.example.pattern.factory;
 
 import org.example.cache.Cache;
 import org.example.cache.LRUCache;

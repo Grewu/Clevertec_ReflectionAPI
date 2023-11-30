@@ -1,4 +1,4 @@
-package org.example.util.template;
+package org.example.pattern.template;
 
 import org.example.entity.Product;
 

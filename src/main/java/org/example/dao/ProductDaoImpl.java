@@ -31,11 +31,11 @@ import java.util.UUID;
 public class ProductDaoImpl implements ProductDao {
     private static final ConnectionManager connectionManager = ConnectionManagerSingleton.getInstance();
     private final ProductMapper productMapper;
-    private static final String SELECT_BY_UUID_SQL = "SELECT * FROM products WHERE uuid = ?";
-    private static final String SELECT_ALL_SQL = "SELECT * FROM products";
-    private static final String INSERT_SQL = "INSERT INTO products (uuid, name, description, price, created) VALUES (?, ?, ?, ?, ?)";
-    private static final String UPDATE_SQL = "UPDATE products SET name = ?, description = ?, price = ?, created = ? WHERE uuid = ?";
-    private static final String DELETE_SQL = "DELETE FROM products WHERE uuid = ?";
+    private static final String SELECT_BY_UUID_SQL = "SELECT * FROM product WHERE uuid = ?";
+    private static final String SELECT_ALL_SQL = "SELECT * FROM product";
+    private static final String INSERT_SQL = "INSERT INTO product (uuid, name, description, price, created) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE_SQL = "UPDATE product SET name = ?, description = ?, price = ?, created = ? WHERE uuid = ?";
+    private static final String DELETE_SQL = "DELETE FROM product WHERE uuid = ?";
 
     @Override
     public ProductDto get(UUID uuid) {
@@ -137,7 +137,7 @@ public class ProductDaoImpl implements ProductDao {
                 product.setPrice(new BigDecimal(priceString));
                 String createdString = resultSet.getString("created");
                 if (createdString != null && !createdString.isEmpty()) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                     product.setCreated(LocalDateTime.parse(createdString, formatter));
                 }
                 return Optional.of(product);
@@ -160,7 +160,7 @@ public class ProductDaoImpl implements ProductDao {
                 product.setName(resultSet.getString("name"));
                 product.setDescription(resultSet.getString("description"));
                 product.setPrice(new BigDecimal(resultSet.getString("price")));
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime dateTime = LocalDateTime.parse(resultSet.getString("created"), formatter);
                 product.setCreated(dateTime);
                 products.add(product);

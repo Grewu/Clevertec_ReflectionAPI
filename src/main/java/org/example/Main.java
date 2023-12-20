@@ -44,12 +44,12 @@ public class Main {
                 .build();
 
 
-        productController.getProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"));
-        productController.deleteProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"));
-        productTemplate.generateReport(product);
-        productController.createProduct(productDto);
-        productController.getAllProducts();
-        productController.updateProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), productDto);
+       // productController.getProduct(UUID.fromString("6d381ef7-5951-4e62-819a-dd35076ff3c0"));
+       productController.deleteProduct(UUID.fromString("6d381ef7-5951-4e62-819a-dd35076ff3c0"));
+//        productTemplate.generateReport(product);
+//        productController.createProduct(productDto);
+//        productController.getAllProducts();
+//        productController.updateProduct(UUID.fromString("e6cde702-960c-47e5-ac8c-acdc4abcf962"), productDto);
     }
 
     public static void main(String[] args) {
